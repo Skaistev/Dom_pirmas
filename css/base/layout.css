@@ -1,0 +1,8 @@
+body {
+    display: grid;
+    grid-template-columns: 1fr 20rem; 
+    /* taip pat  grid-template-columns: auto 100px - usifiksuoja viena dalis, kita prisitaiko.   */
+    grid-template-rows: 4rem 1fr;
+    align-items: start;
+    align-content: start;
+}
