@@ -1,6 +1,7 @@
 .task-table {
     display: grid;
     overflow: auto;
+    align-content: start;
 }
 .task-table .task-content {
     display: flex;
@@ -13,4 +14,9 @@
     gap: 1rem;
     width: 20rem;
     border: 1px solid red;
+}
+.task-table .table-message {
+    padding: 2rem;
+    font-size: 1.5rem;
+    border: 0.2rem dotted red;
 }
