@@ -1,8 +1,8 @@
 import { Table } from "../components/Table.js";
 
 const todo = new Table(
-    '',
-    'Homepage design',
+    'main',
+    'Home design',
     'Panašu, jog dar neturi jokių užduočių'
 );
 

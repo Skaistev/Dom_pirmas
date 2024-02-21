@@ -1,7 +1,13 @@
-// OOP - "objektinis" programavimas
-// Klase yra receptura.is jos sukurtas objektas  yra manipuliuojamas. 
-// -savybes (propertys)
-// -funkcionalumas (methods)
+/*
+OOP - "objektinis" programavimas
+
+Klase yra kaip "receptura".
+O is jos sukurtas objektas, jau yra "valgomas".
+
+Klase sudaro:
+- savybes (properties)
+- funkcionalumas (methods)
+*/
 
 class Table {
     constructor(selector, title, emptyTableText) {
