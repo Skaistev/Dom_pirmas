@@ -9,22 +9,30 @@ Klase sudaro:
 - funkcionalumas (methods)
 */
 
+import { TaskCard } from "./TaskCard.js";
+
 class Table {
-    constructor(selector, title, emptyTableText) {
+    constructor(selector, title, emptyTableText,data) {
         // this - lt. šis, šito, šio
         // this - kontekstinis kintamasis
         this.selector = selector;
         this.DOM = null;
         this.titleDOM = null;
         this.tableDOM = null;
+      
 
         this.title = title;
         this.emptyTableText = emptyTableText;
-        this.columnNames = [];
-        this.visibleColumnsCount = 0;
-        this.hiddenColumnsCount = 0;
+        this.data = data;
+
+
+        // this.columnNames = [];
+        
+        this.tasks = []; 
+        // taskCard objektai 
 
         this.init();
+       
     }
 
     init() {
@@ -44,6 +52,9 @@ class Table {
             return 'ERROR: nepavyko rasti "table" elemento';
         }
 
+        this.renderColumns();
+        this.createTaskObjects();
+
         // vykdom turinio generavima...
     }
 
@@ -60,7 +71,7 @@ class Table {
     }
 
     isValidMainElement() {
-        this.DOM = document.querySelector(selector);
+        this.DOM = document.querySelector(this.selector);
 
         if (this.DOM === null) {
             return false;
@@ -76,7 +87,7 @@ class Table {
             return false;
         }
 
-        this.titleDOM.innerText = title;
+        this.titleDOM.innerText = this.title;
 
         return true;
     }
@@ -91,18 +102,53 @@ class Table {
         return true;
     }
 
-    addColumn(columnName) {
-        if (typeof columnName !== 'string') {
-            return 'ERROR: stulpelio pavadinimas turi buti "string" tipo';
+    // addColumn(columnName) {
+
+    //     if (typeof columnName !== 'string') {
+    //         return 'ERROR: stulpelio pavadinimas turi buti "string" tipo';
+    //     }
+
+    //     columnName = columnName.trim().replace(/  +/g, ' ');
+
+    //     if (columnName === '') {
+    //         return 'ERROR: stulpelio pavadinimas turi buti ne tuscias tekstas';
+    //     }
+
+    //     this.columnNames.push(columnName);
+    // }
+    
+    createTaksObjects(){
+        for(const task of this.data.tasks){
+            this.tasks.push(new TaskCard(task))
         }
+        console.log(this.tasks)
+    }
+    renderColumns(){
 
-        columnName = columnName.trim().replace(/  +/g, ' ');
+        let HTML = "";
 
-        if (columnName === '') {
-            return 'ERROR: stulpelio pavadinimas turi buti ne tuscias tekstas';
+        console.log(this.data.columns);
+
+        for (const column of this.data.columns){
+
+            let taskListHTML = '';
+
+            for(const taskObj of this.tasks){
+                if(column.status!== taskObj.status){
+                    continue
+                }
+
+                taskListHTML += `<li>${task.title}</li>`
+            }
+
+            HTML += `<div class="table-column">
+            <h2>${column.title}</h2>
+            <ul>
+            <li>${taskListHTML}</li>
+            </ul>
+            </div>`
         }
-
-        this.columnNames.push(columnName);
+        this.tableDOM.innerHTML = HTML;
     }
 }
 

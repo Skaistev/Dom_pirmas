@@ -1,14 +1,12 @@
 import { Table } from "../components/Table.js";
+import { data } from "../data/data.js";
 
-const todo = new Table(
+
+new Table(
     'main',
-    'Home design',
-    'Panašu, jog dar neturi jokių užduočių'
+    'Home design 2',
+    'Panašu, jog dar neturi jokių užduočių',
+    data,
 );
 
-todo.addColumn('Backlog');
-todo.addColumn('In progress');
-todo.addColumn('Review');
-todo.addColumn('Done');
 
-console.log(todo);
