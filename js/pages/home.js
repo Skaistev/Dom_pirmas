@@ -9,4 +9,19 @@ new Table(
     data,
 );
 
+//  jei klases viduj kontruojami stulpeliai
+// addColumn(columnName) {
 
+    //     if (typeof columnName !== 'string') {
+    //         return 'ERROR: stulpelio pavadinimas turi buti "string" tipo';
+    //     }
+
+    //     columnName = columnName.trim().replace(/  +/g, ' ');
+
+    //     if (columnName === '') {
+    //         return 'ERROR: stulpelio pavadinimas turi buti ne tuscias tekstas';
+    //     }
+
+    //     this.columnNames.push(columnName);
+    // }
+    

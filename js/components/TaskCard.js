@@ -7,9 +7,13 @@ class TaskCard {
 
     }
 
-render () {
-    return `<li>${this.title}</li>`
-}
+    render() {
+        return `
+            <li class="task-card">
+                <h3 class="task-title">${this.title}</h3>
+                <p class="task-description">${this.description}</p>
+            </li>`;
+    }
 }
 
 export { TaskCard };

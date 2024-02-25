@@ -12,27 +12,23 @@ Klase sudaro:
 import { TaskCard } from "./TaskCard.js";
 
 class Table {
-    constructor(selector, title, emptyTableText,data) {
+    constructor(selector, title, emptyTableText, data) {
         // this - lt. šis, šito, šio
         // this - kontekstinis kintamasis
+
         this.selector = selector;
         this.DOM = null;
         this.titleDOM = null;
         this.tableDOM = null;
-      
+        this.emptyTableMsgDOM = null;
 
         this.title = title;
         this.emptyTableText = emptyTableText;
         this.data = data;
 
-
-        // this.columnNames = [];
-        
-        this.tasks = []; 
-        // taskCard objektai 
+        this.tasks = [];    // TaskCard klases objektai
 
         this.init();
-       
     }
 
     init() {
@@ -48,14 +44,16 @@ class Table {
             return 'ERROR: nepavyko rasti "title" elemento';
         }
 
+        if (!this.isValidEmptyTableMsgElement()) {
+            return 'ERROR: nepavyko rasti "empty table message" elemento';
+        }
+
         if (!this.isValidTableElement()) {
             return 'ERROR: nepavyko rasti "table" elemento';
         }
 
-        this.renderColumns();
         this.createTaskObjects();
-
-        // vykdom turinio generavima...
+        this.renderColumns();
     }
 
     isValidSelector() {
@@ -92,6 +90,22 @@ class Table {
         return true;
     }
 
+    isValidEmptyTableMsgElement() {
+        this.emptyTableMsgDOM = this.DOM.querySelector('.table-msg');
+
+        if (this.emptyTableMsgDOM === null) {
+            return false;
+        }
+
+        this.emptyTableMsgDOM.innerText = this.emptyTableText;
+
+        if (this.data.tasks.length > 0) {
+            this.emptyTableMsgDOM.style.display = 'none';
+        }
+
+        return true;
+    }
+
     isValidTableElement() {
         this.tableDOM = this.DOM.querySelector('.table-content');
 
@@ -102,52 +116,34 @@ class Table {
         return true;
     }
 
-    // addColumn(columnName) {
-
-    //     if (typeof columnName !== 'string') {
-    //         return 'ERROR: stulpelio pavadinimas turi buti "string" tipo';
-    //     }
-
-    //     columnName = columnName.trim().replace(/  +/g, ' ');
-
-    //     if (columnName === '') {
-    //         return 'ERROR: stulpelio pavadinimas turi buti ne tuscias tekstas';
-    //     }
-
-    //     this.columnNames.push(columnName);
-    // }
-    
-    createTaksObjects(){
-        for(const task of this.data.tasks){
-            this.tasks.push(new TaskCard(task))
+    createTaskObjects() {
+        for (const task of this.data.tasks) {
+            this.tasks.push(new TaskCard(task));
         }
         console.log(this.tasks)
     }
-    renderColumns(){
 
-        let HTML = "";
+    renderColumns() {
+        let HTML = '';
 
-        console.log(this.data.columns);
-
-        for (const column of this.data.columns){
-
+        for (const column of this.data.columns) {
             let taskListHTML = '';
 
-            for(const taskObj of this.tasks){
-                if(column.status!== taskObj.status){
-                    continue
+            for (const taskObj of this.tasks) {
+                if (column.status !== taskObj.status) {
+                    continue;
                 }
 
-                taskListHTML += `<li>${task.title}</li>`
+                taskListHTML += taskObj.render();
             }
 
-            HTML += `<div class="table-column">
-            <h2>${column.title}</h2>
-            <ul>
-            <li>${taskListHTML}</li>
-            </ul>
-            </div>`
+            HTML += `
+                <div class="table-column">
+                    <h2 class="column-title">${column.title}</h2>
+                    <ul class="task-list">${taskListHTML}</ul>
+                </div>`;
         }
+
         this.tableDOM.innerHTML = HTML;
     }
 }

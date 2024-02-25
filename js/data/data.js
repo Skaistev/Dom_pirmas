@@ -18,7 +18,7 @@ const data = {
         {
             title: 'Paklausti apie "ryto klausimus"',
             description: 'Gal turės ką paklausti? 🤔',
-            status: 'in-progress',
+            status: 'todo',
         },
         {
             title: 'Git',
